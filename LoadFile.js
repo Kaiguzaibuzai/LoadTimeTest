@@ -54,7 +54,7 @@ function JQGetJsonData(filename){
 $.ajax({
     url: "http://10.100.41.40:9966/LoadTimeTest//loadfile/"+filename,//json文件位置，文件名
     type: "GET",//请求方式为get
-    dataType: "text", //返回数据格式为json
+    dataType: "json", //返回数据格式为json
     success: function(data) {//请求成功完成后要执行的方法 
        //给info赋值给定义好的变量
        pageData.push(data);
