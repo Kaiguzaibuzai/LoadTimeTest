@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JsZIPTest</title>
+</head>
+<body onload="main()">
+    <script src="jquery-3.2.1.js"></script>
+    <script src="jszip.min.js"></script>
+    <script src="LoadFileJSZIP.js"></script>
+    <script src="jszip.js"></script>
+    
+    <h3>Choose the local(s) zip file(s)</h3>
+    <!-- <p class="note">Note : your browser will process the zip file, don't choose a file too big !</p> -->
+    <input type="file" id="file" name="file" multiple /><br />
+    
+    <div id="result_block" class="hidden">
+      <h3>time consuming :</h3>
+      <div id="result"></div>
+    </div>
+</body>
+</html>
