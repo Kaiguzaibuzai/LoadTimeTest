@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NormalTest</title>
+</head>
+<body onload="main()">
+    <script src="../lib/three.js"></script>
+    <script src="GLTFLoader.js"></script>
+    <script src="LoadFile.js"></script>
+    <script src="../lib/jquery-3.2.1.js"></script>
+
+    <h3>Choose all the local(s) file(s)</h3>
+    <input type="file" id="file" name="file" multiple /><br />
+    <div id="result_block" class="hidden">
+        <h3 id="time"> time consuming :</h3>
+        <div id="result"></div>
+      </div>
+</body>
+</html>
