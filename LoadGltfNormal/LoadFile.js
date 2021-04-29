@@ -3,20 +3,6 @@
 // import * as THREE from '../three.js/examples/jsm/loaders/GLTFLoader';
 
 
-let pageData = [];//用来存放Json数据
-let url;    //url
-let arrayBuffer;//存放图片Data的arraybuffer
-let byteArray;//存放图片的Uint8Array
-let resultByteArray = [];//存放图片Uint8数组的结果数组
-let gltfurl,binurl;    //gltf模型的url,bin文件的url
-
-let modelfoldername = []; //存放模型文件夹名称
-
-let binArrayBuffer,binByteArray; //存放bin文件的arraybuffer和Uint8Array
-
-let resultGltf = [];
-
-const gltfloader = new THREE.GLTFLoader();
 
  
 
@@ -72,30 +58,31 @@ function LoadGLtfModel(foldername){
 
     gltfurl = "http://10.100.41.40:9966/LoadTimeTest/models_gltf/"+foldername+"/index.gltf";
 
-    gltfloader.load(
-        // resource URL
-        gltfurl,
-        // called when the resource is loaded
-        function ( gltf ) {
-            // scene.add( gltf.scene );
-            // gltf.animations; // Array<THREE.AnimationClip>
-            // gltf.scene; // THREE.Group
-            // gltf.scenes; // Array<THREE.Group>
-            // gltf.cameras; // Array<THREE.Camera>
-            // gltf.asset; // Object
-            resultGltf.push(gltf);
-            
-        },
-        // called while loading is progressing
-        function ( xhr ) {
-            //console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-        },
-        // called when loading has errors
-        function ( error ) {
-            console.log( 'An error happened' );
-        }
-    );
+    return new Promise((resolve,reject)=>{
 
+        gltfloader.load(
+            // resource URL
+            gltfurl,
+            // called when the resource is loaded
+            function ( gltf ) {
+                scene.add( gltf.scene );
+                // resultGltf.push(gltf);
+                resolve();
+                
+            },
+            // called while loading is progressing
+            function ( xhr ) {
+                //console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+            },
+            // called when loading has errors
+            function ( error ) {
+                console.log( 'An error happened' );
+            }
+        );
+    });
+
+   
+    
 }
 
 function LoadModelBin(foldername){
@@ -143,17 +130,21 @@ $.ajax({
 
 }
 
-
+const p_arr = [];
 
 /*加载所有model的时间*/
 function getLoadModelTime(){
     console.time('xx');
-    console.log(modelfoldername.length);
+    // console.log(modelfoldername.length);
     for(let i =0;i<modelfoldername.length;i++){
         // LoadModelBin(modelfoldername[i]);//加载bin文件
-        LoadGLtfModel(modelfoldername[i]);//加载gltf模型
+        p_arr.push( LoadGLtfModel(modelfoldername[i]) );//加载gltf模型
     }
-    console.timeEnd('xx');
+    Promise.all(p_arr).then(()=>{
+        console.timeEnd('xx');
+    });
+    
+    
 }
 
 
@@ -213,6 +204,7 @@ function getLoadTime(){
 var flag = false;
 //获取每个模型文件夹的名称
 function getModelFoldername(){
+    
     $.ajax({
         url: "http://10.100.41.40:9966/LoadTimeTest//models_gltf/foldername.txt",//json文件位置，文件名
         type: "GET",//请求方式为get
@@ -242,12 +234,14 @@ function getSub (obj){
 
 
 function main(){
-    getModelFoldername();
+  
+    draw();
+    window.scene = scene;
     // console.log(modelfoldername);
     // getLoadTime();      //执行获取时间方法
     // console.log(pageData);  //打印json对象数组
     // console.log(resultByteArray);   /*打印图片类型化数组 */
     // getLoadModelTime();
     // console.log(resultByteArray);//bin文件加载后存放位置
-    console.log(resultGltf);//gltf加载后 不添加场景 存在数组
+    // console.log(resultGltf);//gltf加载后 不添加场景 存在数组
 }

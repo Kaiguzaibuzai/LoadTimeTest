@@ -2137,9 +2137,9 @@
 				// console.log(buffer);//返回arraybuffer
 				const byteLength = bufferViewDef.byteLength || 0;
 				const byteOffset = bufferViewDef.byteOffset || 0;
-				if(byteLength!==undefined &&byteOffset!==undefined&&buffer!==undefined){ //这里有坑
+				// if(byteLength!==undefined &&byteOffset!==undefined&&buffer!==undefined){ //这里有坑
 					return buffer.slice( byteOffset, byteOffset + byteLength );
-				}
+				// }
 				
 
 			} );
