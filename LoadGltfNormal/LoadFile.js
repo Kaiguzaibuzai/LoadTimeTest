@@ -52,10 +52,6 @@ function getImageData(filename){
 /* 加载gltf模型 用threejs的gltfloader加载*/
 function LoadGLtfModel(foldername){
 
-    // if(!foldername){
-    //     return;
-    // }
-
     gltfurl = "http://10.100.41.40:9966/LoadTimeTest/models_gltf/"+foldername+"/index.gltf";
 
     return new Promise((resolve,reject)=>{
@@ -63,18 +59,14 @@ function LoadGLtfModel(foldername){
         gltfloader.load(
             // resource URL
             gltfurl,
-            // called when the resource is loaded
             function ( gltf ) {
                 scene.add( gltf.scene );
-                // resultGltf.push(gltf);
                 resolve();
-                
             },
-            // called while loading is progressing
+
             function ( xhr ) {
-                //console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
             },
-            // called when loading has errors
+            
             function ( error ) {
                 console.log( 'An error happened' );
             }
@@ -135,7 +127,6 @@ const p_arr = [];
 /*加载所有model的时间*/
 function getLoadModelTime(){
     console.time('xx');
-    // console.log(modelfoldername.length);
     for(let i =0;i<modelfoldername.length;i++){
         // LoadModelBin(modelfoldername[i]);//加载bin文件
         p_arr.push( LoadGLtfModel(modelfoldername[i]) );//加载gltf模型
@@ -215,8 +206,7 @@ function getModelFoldername(){
            arr.forEach(element => {
                if(element !=="") modelfoldername.push(element);
            });
-            //  console.log(modelfoldername);
-            //  modelfoldername.push(null); // 
+            
             getLoadModelTime();
         }
         
