@@ -48,7 +48,6 @@ function getJsZipLoadTime(){
                     // }); // a promise of "Hello World\n"
                 });
 
-
                 var dateAfter = new Date();
                 //    console.log(zip);
                 $title.append($("<span>", {
